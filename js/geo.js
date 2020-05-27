@@ -15,16 +15,8 @@ window.onload = function() {
 	// Создаем карту, используя установленные выше параметры
 	map = new google.maps.Map(document.getElementById("mapSurface"), myOptions);
 	
-	// Пытаемся определить местоположение пользователя
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-		            geolocationSuccess, geolocationFailure);
-
-		result.innerHTML = "Поиск завершен";
-	}
-	else {
-		result.innerHTML = "Ваш браузер не поддерживает геолокацию";
-		goToDefaultLocation();
-	}
-  
-  f
+	var marker = new google.maps.Marker({
+	position: myLatlng,
+	map: map,
+	title:"Hello World!" 
+});
