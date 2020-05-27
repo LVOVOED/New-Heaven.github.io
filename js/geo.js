@@ -27,38 +27,4 @@ window.onload = function() {
 		goToDefaultLocation();
 	}
   
-  function geolocationSuccess(position) {
-	// Преобразуем местоположение в объект LatLng
-	var location = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-	
-	// Отображаем эту точку на карте
-	map.setCenter(location);
-}
-  
-  function geolocationSuccess(position) {
-	
-    ...
-	
-	// Создаем всплывающее информационное окно и устанавливаем
-	// его текст и положение на карте.
-	var infowindow = new google.maps.InfoWindow();
-	infowindow.setContent("Вы находитесь где-то в этом районе.");
-	infowindow.setPosition(location);
-	
-	// Отображаем всплывающее окно
-	infowindow.open(map);
-
-	results.innerHTML = "Местоположение отмечено на карте.";
-}
-  function geolocationFailure(positionError) {
-	...
-	goToDefaultLocation();
-}
-
-function goToDefaultLocation() {
-	// Примерные координаты центра Москвы
-	var moscow = new google.maps.LatLng(55.753878,37.649275);
-	map.setCenter(moscow);
-}
-  navigator.geolocation.watchPosition(
-		geolocationSuccess, geolocationFailure);
+  f
