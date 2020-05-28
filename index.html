@@ -28,12 +28,26 @@
         map = new google.maps.Map(document.getElementById('map'), {
             center: coordinates
         }),
-
+        void setCameraGmap(Location location)
+    {
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                .zoom(13)
+                .build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        gmap.animateCamera(cameraUpdate);
+    }
         marker = new google.maps.Marker({
             position: coordinates,
             map: map,
             animation: google.maps.Animation.BOUNCE
         });
+
+String[] latlng = coordinates.split(",");
+                        LatLng loc = new LatLng(Double.parseDouble(latlng[0]), Double.parseDouble(latlng[1]));
+                        Marker m1 = gmap.addMarker(new MarkerOptions()
+                                .position(loc)
+                                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(null, null))));
       }
     </script>
 
