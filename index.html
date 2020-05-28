@@ -22,29 +22,53 @@
   <body>
     <div id="map"></div>
       <script>
-    function initMap() {
-   var coordinates = {lat: 47.212325, lng: 38.933663},
-
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: coordinates
-        }),
-        void setCameraGmap(Location location)
-    {
-        CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                .zoom(13)
-                .build();
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
-        gmap.animateCamera(cameraUpdate);
-    }
-        marker = new google.maps.Marker({
-            position: coordinates,
-            map: map,
-            animation: google.maps.Animation.BOUNCE
+     function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: {lat: -24.345, lng: 134.46}  // Australia.
         });
 
+        var directionsService = new google.maps.DirectionsService;
+        var directionsRenderer = new google.maps.DirectionsRenderer({
+          draggable: true,
+          map: map,
+          panel: document.getElementById('right-panel')
+        });
 
+        directionsRenderer.addListener('directions_changed', function() {
+          computeTotalDistance(directionsRenderer.getDirections());
+        });
+
+        displayRoute('Perth, WA', 'Sydney, NSW', directionsService,
+            directionsRenderer);
       }
+
+      function displayRoute(origin, destination, service, display) {
+        service.route({
+          origin: origin,
+          destination: destination,
+          waypoints: [{location: 'Adelaide, SA'}, {location: 'Broken Hill, NSW'}],
+          travelMode: 'DRIVING',
+          avoidTolls: true
+        }, function(response, status) {
+          if (status === 'OK') {
+            display.setDirections(response);
+          } else {
+            alert('Could not display directions due to: ' + status);
+          }
+        });
+      }
+
+      function computeTotalDistance(result) {
+        var total = 0;
+        var myroute = result.routes[0];
+        for (var i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
+        }
+        total = total / 1000;
+        document.getElementById('total').innerHTML = total + ' km';
+      }
+
     </script>
 
     <script async defer
