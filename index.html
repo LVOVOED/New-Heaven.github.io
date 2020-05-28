@@ -43,11 +43,7 @@
             animation: google.maps.Animation.BOUNCE
         });
 
-String[] latlng = coordinates.split(",");
-                        LatLng loc = new LatLng(Double.parseDouble(latlng[0]), Double.parseDouble(latlng[1]));
-                        Marker m1 = gmap.addMarker(new MarkerOptions()
-                                .position(loc)
-                                .icon(BitmapDescriptorFactory.fromBitmap(getMarkerBitmapFromView(null, null))));
+
       }
     </script>
 
